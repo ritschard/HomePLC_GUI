@@ -116,6 +116,20 @@ namespace HomePLC.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap remotePhoneOff {
+            get {
+                object obj = ResourceManager.GetObject("remotePhoneOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap remotePhoneOn {
+            get {
+                object obj = ResourceManager.GetObject("remotePhoneOn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Settings_icon {
             get {
                 object obj = ResourceManager.GetObject("Settings_icon", resourceCulture);

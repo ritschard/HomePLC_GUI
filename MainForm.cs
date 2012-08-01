@@ -16,10 +16,11 @@ namespace HomePLC
         private BoardType inputBoard;
         private BoardType outputBoard;
         private ScriptEngine scriptEngine;
-        private TriggerEngine triggerEngine = new TriggerEngine();
+        private TriggerEngine triggerEngine = null;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private bool logCommands = true;
         private TriggeringEvent myEvent = null;
+        private RemoteServiceHost myServiceHost = null;
 
         public bool LogCommands
         {
@@ -36,19 +37,8 @@ namespace HomePLC
                 
             }
         }
-
-        public MainForm()
-        {
-            InitializeComponent();
-            toolbar.Renderer = new ToolStripOverride();
-            scriptEngine = new ScriptEngine();
-            scriptBS.DataSource = scriptEngine;
-            scriptCurrentChanged(null, null);
-            triggerEngine = new TriggerEngine();
-            triggerBS.DataSource = triggerEngine;
-        }
-
-        private void scriptCurrentChanged(object sender, EventArgs e)
+        
+        private void ScriptCurrentChanged(object sender, EventArgs e)
         {
             if (scriptBS.Current != null)
             {
@@ -68,7 +58,37 @@ namespace HomePLC
             }
         }
 
-        // INIT LOGER METHOD //
+        public MainForm()
+        {
+            InitializeComponent();
+            toolbar.Renderer = new ToolStripOverride();
+            scriptEngine = new ScriptEngine();
+            scriptBS.DataSource = scriptEngine;
+            ScriptCurrentChanged(null, null);
+            triggerEngine = new TriggerEngine();
+            triggerBS.DataSource = triggerEngine;
+            myServiceHost = new RemoteServiceHost();
+        }
+
+        #region // FORM LOAD/CLOSE METHODS //
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //toolbar.Renderer = new ToolStripOverride();
+            InitLog();
+            InitModule(Properties.Settings.Default.devInputBoard, Properties.Settings.Default.devOutputBoard);
+
+            timer1.Start();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mdl.Disconnect();
+            mdl.Dispose();
+            GC.Collect();
+        }
+        #endregion
+       
+        #region // INIT METHODS //
         private void InitLog()
         {
             LoggingConfiguration config = new LoggingConfiguration();
@@ -109,6 +129,7 @@ namespace HomePLC
 
             LogManager.Configuration = config;
         }
+        
         private void InitModule(BoardType input, BoardType output)
         {
             if (input == BoardType.Analog)
@@ -172,6 +193,7 @@ namespace HomePLC
             mdl.InputDigitalPinChangedEvent += new DigitalPinChangedEventHandler(InputDigitalPinUpdated);
             mdl.InputAnalogPinChangedEvent += new AnalogPinChangedEventHandler(InputAnalogPinUpdated);
         }
+        
         private void InitAutoSync()
         {
             if (Properties.Settings.Default.clientAlwaysSync)
@@ -188,24 +210,9 @@ namespace HomePLC
                 if (LogCommands) logger.Info("Auto Sync disabled.");
             }
         }
-
-        // FORM LOAD/CLOSE METHODS //
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //toolbar.Renderer = new ToolStripOverride();
-            InitLog();
-            InitModule(Properties.Settings.Default.devInputBoard, Properties.Settings.Default.devOutputBoard);
-
-            timer1.Start();
-        }    
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            mdl.Disconnect();
-            mdl.Dispose();
-            GC.Collect();
-        }
-        
-        // MODULE I/O, CONNECTION AND SETTINGS UPDATE EVENT HANDLING METHODS //
+        #endregion
+               
+        #region // MODULE I/O, CONNECTION AND SETTINGS UPDATE EVENT HANDLING METHODS //
         void ConnectionEventUpdated(Module sender, HomePLC.Model.ConnectionState state)
         {
             switch (state)
@@ -250,6 +257,7 @@ namespace HomePLC
                     break;
             }
         }
+        
         void NetworkInfoUpdated(Module sender, UpdateInfo update, IPAddress address)
         {
             switch (update)
@@ -271,6 +279,7 @@ namespace HomePLC
                     break;       
             }
         }
+        
         void RTCUpdated(Module sender, UpdateInfo update, DateTime rtc, bool burnedToDevice)
         {
             switch (update)
@@ -284,6 +293,7 @@ namespace HomePLC
                     break;
                 }
         }
+
         void OutputDigitalPinUpdated(Module sender, int pin, bool value, bool onDevice)
         {
             if (onDevice)
@@ -401,6 +411,7 @@ namespace HomePLC
                 if (LogCommands) logger.Info("Changing digital output pin: " + pin.ToString() + " state to: " + value.ToString());
             }
         }
+
         void OutputAnalogPinUpdated(Module sender, int pin, byte value, bool onDevice)
         {
             if (onDevice)
@@ -447,6 +458,7 @@ namespace HomePLC
                 if (LogCommands) logger.Info("Changing analog output pin: " + pin.ToString() + " value to: " + value.ToString());
             }
         }
+
         void InputDigitalPinUpdated(Module sender, int pin, bool value, bool onDevice)
         {
             if (onDevice)
@@ -561,6 +573,7 @@ namespace HomePLC
                 logger.Info("Digital INPUT pin: " + pin.ToString() + ", STATE changed to: " + value.ToString());
             }
         }
+
         void InputAnalogPinUpdated(Module sender, int pin, byte value, bool onDevice)
         {
             if (onDevice)
@@ -610,8 +623,9 @@ namespace HomePLC
                 logger.Info("Analog INPUT pin: " + pin.ToString() + ", VALUE changed to: " + value.ToString());
             }
         }
+        #endregion
 
-        // DIGITAL OUTPUT BUTTONS CLICK METHODS//
+        #region // DIGITAL OUTPUT BUTTONS CLICK METHODS//
         private void btnD0_Click(object sender, EventArgs e)
         {
             if (btnO0D.Text == "OFF")
@@ -619,6 +633,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[0] = false;
         }
+       
         private void btnD1_Click(object sender, EventArgs e)
         {
             if (btnO1D.Text == "OFF")
@@ -626,6 +641,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[1] = false;
         }
+        
         private void btnD2_Click(object sender, EventArgs e)
         {
             if (btnO2D.Text == "OFF")
@@ -633,6 +649,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[2] = false;
         }
+        
         private void btnD3_Click(object sender, EventArgs e)
         {
             if (btnO3D.Text == "OFF")
@@ -640,6 +657,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[3] = false;
         }
+        
         private void btnD4_Click(object sender, EventArgs e)
         {
             if (btnO4D.Text == "OFF")
@@ -647,6 +665,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[4] = false;
         }
+        
         private void btnD5_Click(object sender, EventArgs e)
         {
             if (btnO5D.Text == "OFF")
@@ -654,6 +673,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[5] = false;
         }
+        
         private void btnD6_Click(object sender, EventArgs e)
         {
             if (btnO6D.Text == "OFF")
@@ -661,6 +681,7 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[6] = false;
         }
+        
         private void btnD7_Click(object sender, EventArgs e)
         {
             if (btnO7D.Text == "OFF")
@@ -668,75 +689,92 @@ namespace HomePLC
             else
                 mdl.OutputDigitalPin[7] = false;
         }
+        #endregion
 
-        // ANALOG OUTPUT TRACKBAR VALUE AND NUMERIC CONTROL METHODS//
+        #region // ANALOG OUTPUT TRACKBAR VALUE AND NUMERIC CONTROL METHODS//
         private void trackO0A_ValueChanged(object sender, EventArgs e)
         {
             numO0A.Value = trackO0A.Value;
         }
+        
         private void trackO1A_ValueChanged(object sender, EventArgs e)
         {
             numO1A.Value = trackO1A.Value;
         }
+        
         private void trackO2A_ValueChanged(object sender, EventArgs e)
         {
             numO2A.Value = trackO2A.Value;
         }
+        
         private void trackO3A_ValueChanged(object sender, EventArgs e)
         {
             numO3A.Value = trackO3A.Value;
         }
+        
         private void trackO4A_ValueChanged(object sender, EventArgs e)
         {
             numO4A.Value = trackO4A.Value;
         }
+        
         private void trackO5A_ValueChanged(object sender, EventArgs e)
         {
             numO5A.Value = trackO5A.Value;
         }
+        
         private void trackO6A_ValueChanged(object sender, EventArgs e)
         {
             numO6A.Value = trackO6A.Value;
         }
+        
         private void trackO7A_ValueChanged(object sender, EventArgs e)
         {
             numO7A.Value = trackO7A.Value;
         }
 
+
         private void numO0A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[0] = (byte)numO0A.Value;  
         }
+        
         private void numO1A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[1] = (byte)numO1A.Value;
         }
+        
         private void numO2A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[2] = (byte)numO2A.Value;
         }
+        
         private void numO3A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[3] = (byte)numO3A.Value;
         }
+        
         private void numO4A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[4] = (byte)numO4A.Value;
         }
+        
         private void numO5A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[5] = (byte)numO5A.Value;
         }
+        
         private void numO6A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[6] = (byte)numO6A.Value;
         }
+        
         private void numO7A_ValueChanged(object sender, EventArgs e)
         {
             mdl.OutputAnalogPin[7] = (byte)numO7A.Value;
         }
+        #endregion
 
-        // TOOLBAR BUTTONS //
+        #region // TOOLBAR BUTTONS //
         private void tbConnect_Click(object sender, EventArgs e)
         {
             if (tbConnect.Text == "&Connect")
@@ -744,6 +782,7 @@ namespace HomePLC
             else
                 mdl.Disconnect();
         }
+
         private void tbSettings_Click(object sender, EventArgs e)
         {
             SettingsForm settingz = new SettingsForm();
@@ -776,7 +815,33 @@ namespace HomePLC
             }
         }
 
-        // LOGVIEW BUTTONS //
+        private void tbRemote_Click(object sender, EventArgs e)
+        {
+            if (!myServiceHost.IsStarted)
+            {
+                myServiceHost.Start();
+                                
+                if (myServiceHost.IsStarted)
+                    tbRemote.Image = Properties.Resources.remotePhoneOn;
+            }
+            else
+            {
+                myServiceHost.Stop();
+                if (!myServiceHost.IsStarted)
+                    tbRemote.Image = Properties.Resources.remotePhoneOff;
+            }
+        }
+
+        private void tbAbout_Click(object sender, EventArgs e)
+        {
+            using (AboutForm af = new AboutForm())
+            {
+                af.ShowDialog(this);
+            }
+        }
+        #endregion
+
+        #region // LOGVIEW BUTTONS //
         private void chkUserLog_CheckedChanged(object sender, EventArgs e)
         {
             if (chkUserLog.Checked)
@@ -788,6 +853,7 @@ namespace HomePLC
                 LogCommands = false;
             }
         }  
+      
         private void chkDebugLog_CheckedChanged(object sender, EventArgs e)
         {
             if (chkDebugLog.Checked)
@@ -799,12 +865,15 @@ namespace HomePLC
                 mdl.Debug = false;
             }
         }
+        
         private void btnClearLog_Click(object sender, EventArgs e)
         {
             txtLog.Clear();
         }
+        #endregion
 
-        // AUTOMATIZATION TAB //
+        #region // AUTOMATIZATION TAB //
+        /* SCRIPTS */
         private void btnAddScript_Click(object sender, EventArgs e)
         {
             Script s = new Script("Script " + scriptEngine.Count.ToString());
@@ -817,6 +886,7 @@ namespace HomePLC
                 }
             }       
         }
+        
         private void btnEditScript_Click(object sender, EventArgs e)
         {
             Script s = scriptBS.Current as Script;
@@ -829,11 +899,13 @@ namespace HomePLC
                 }
             }
         }
+        
         private void btnRemScript_Click(object sender, EventArgs e)
         {
             Script s = scriptBS.Current as Script;
             scriptEngine.Remove(s);
         }
+        
         private void btnTrigScript_Click(object sender, EventArgs e)
         {
             Script s = scriptBS.Current as Script;
@@ -843,6 +915,7 @@ namespace HomePLC
                 s.Enabled = !s.Enabled;
             }
         }
+        
         private void btnExecScript_Click(object sender, EventArgs e)
         {
             Script s = scriptBS.Current as Script;
@@ -852,6 +925,7 @@ namespace HomePLC
                 s.Execute(mdl);
             }
         }
+        
         private void btnExportScripts_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
@@ -859,21 +933,17 @@ namespace HomePLC
                 scriptEngine.Save(saveFileDialog.FileName);
             }
         }
+        
         private void brnImportScripts_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 scriptEngine.Load(openFileDialog.FileName);
-                scriptCurrentChanged(null, null);
+                ScriptCurrentChanged(null, null);
             }
         }
-        private void tbAbout_Click(object sender, EventArgs e)
-        {
-            using (AboutForm af = new AboutForm())
-            {
-                af.ShowDialog(this);
-            }
-        }
+        
+        /* TRIGGERS */
         private void chkTriggers_CheckedChanged(object sender, EventArgs e)
         {
             if (chkTriggers.Checked)
@@ -883,6 +953,7 @@ namespace HomePLC
                 panelScripts.Visible = false;
             }
         }
+        
         private void chkActions_CheckedChanged(object sender, EventArgs e)
         {
             if (chkActions.Checked)
@@ -892,6 +963,7 @@ namespace HomePLC
                 panelTriggers.Visible = false;
             }
         }
+        
         private void btnAddTrigger_Click(object sender, EventArgs e)
         {
             using (SelectTriggerForm form = new SelectTriggerForm())
@@ -910,6 +982,7 @@ namespace HomePLC
                 }
             }
         }
+        
         private void brnRemTriggers_Click(object sender, EventArgs e)
         {
             if (lbTriggers.SelectedItem != null)
@@ -918,6 +991,7 @@ namespace HomePLC
                 lbTriggers.Items.Remove(lbTriggers.SelectedItem);
             }
         }
+        
         private void btnConfigTrigger_Click(object sender, EventArgs e)
         {
             if (lbTriggers.SelectedItem != null)
@@ -929,6 +1003,9 @@ namespace HomePLC
                 }
             }
         }
+        #endregion
+
+        // HELPER METHODS
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (triggerEngine.Triggers.Count > 0)
@@ -942,6 +1019,7 @@ namespace HomePLC
                 ProcessDogadjaj(myEvent);
             }
         }
+        
         private void ProcessDogadjaj(TriggeringEvent dogadjaj)
         {
             foreach (BaseTrigger item in triggerEngine.Triggers)
@@ -953,5 +1031,7 @@ namespace HomePLC
                 }
             }
         }
+
+        
     } 
 }

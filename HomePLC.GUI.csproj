@@ -25,6 +25,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
     <PublishUrl>D:\GIT\HomePLC_GUI\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -46,7 +47,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,6 +75,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -120,6 +121,7 @@
     <Compile Include="Model\AnalogPinTrigger.cs" />
     <Compile Include="Model\DigitalPinTrigger.cs" />
     <Compile Include="Model\HomePLCException.cs" />
+    <Compile Include="Model\RemoteServiceHost.cs" />
     <Compile Include="Model\TimeTrigger.cs" />
     <Compile Include="Forms\SelectTriggerForm.cs">
       <SubType>Form</SubType>
@@ -198,6 +200,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\remotePhoneOn.png" />
+    <None Include="Resources\remotePhoneOff.png" />
     <None Include="app.config" />
     <None Include="HomePLC_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
@@ -250,7 +254,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="HomePLC.RemoteService\HomePLC.RemoteService.csproj">
+      <Project>{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}</Project>
+      <Name>HomePLC.RemoteService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -68,9 +68,13 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.refreshTimePicker = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabGui.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTime)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -138,12 +142,15 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.textBox1);
+            this.groupBox7.Controls.Add(this.label10);
+            this.groupBox7.Controls.Add(this.checkBox1);
             this.groupBox7.Location = new System.Drawing.Point(7, 179);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(355, 65);
             this.groupBox7.TabIndex = 15;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Log Viewer";
+            this.groupBox7.Text = "Remote";
             // 
             // groupBox6
             // 
@@ -482,6 +489,35 @@
             // 
             this.refreshTimePicker.Tick += new System.EventHandler(this.refreshTimePicker_Tick);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(95, 38);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(167, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Start remote service at startup";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(92, 17);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(106, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "TCP port to listen on:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::HomePLC.Properties.Settings.Default, "clientPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBox1.Location = new System.Drawing.Point(204, 14);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textBox1.Size = new System.Drawing.Size(49, 20);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Text = global::HomePLC.Properties.Settings.Default.clientPort;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -502,6 +538,8 @@
             this.tabControl.ResumeLayout(false);
             this.tabGui.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTime)).EndInit();
@@ -559,5 +597,8 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

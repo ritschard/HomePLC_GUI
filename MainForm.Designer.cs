@@ -163,6 +163,8 @@
             this.tbSettings = new System.Windows.Forms.ToolStripButton();
             this.tbAbout = new System.Windows.Forms.ToolStripButton();
             this.triggerBS = new System.Windows.Forms.BindingSource(this.components);
+            this.tbRemote = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.tabIO.SuspendLayout();
             this.grpDigitalInputs.SuspendLayout();
@@ -186,6 +188,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackO1A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackO0A)).BeginInit();
             this.tabScript.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -1380,7 +1383,7 @@
             // 
             this.scriptBS.AllowNew = true;
             this.scriptBS.DataSource = typeof(HomePLC.Model.Script);
-            this.scriptBS.CurrentChanged += new System.EventHandler(this.scriptCurrentChanged);
+            this.scriptBS.CurrentChanged += new System.EventHandler(this.ScriptCurrentChanged);
             // 
             // btnExportScripts
             // 
@@ -1629,9 +1632,11 @@
             this.toolbar.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbConnect,
-            this.toolStripSeparator2,
+            this.toolStripSeparator1,
             this.tbSettings,
-            this.tbAbout});
+            this.tbAbout,
+            this.toolStripSeparator2,
+            this.tbRemote});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
             this.toolbar.Padding = new System.Windows.Forms.Padding(1);
@@ -1687,6 +1692,20 @@
             // 
             this.triggerBS.DataSource = typeof(HomePLC.Model.BaseTrigger);
             // 
+            // tbRemote
+            // 
+            this.tbRemote.Image = global::HomePLC.Properties.Resources.remotePhoneOff;
+            this.tbRemote.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbRemote.Name = "tbRemote";
+            this.tbRemote.Size = new System.Drawing.Size(117, 36);
+            this.tbRemote.Text = "Remote control";
+            this.tbRemote.Click += new System.EventHandler(this.tbRemote_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1734,6 +1753,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panelScripts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scriptDGV)).EndInit();
@@ -1886,6 +1906,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn enabledDataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isCompiledDataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tbRemote;
 
     }
 }
