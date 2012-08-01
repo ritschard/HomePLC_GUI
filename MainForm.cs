@@ -7,6 +7,7 @@ using HomePLC.Forms;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using System.ServiceModel;
 
 namespace HomePLC
 {    
@@ -829,6 +830,7 @@ namespace HomePLC
                 myServiceHost.Stop();
                 if (!myServiceHost.IsStarted)
                     tbRemote.Image = Properties.Resources.remotePhoneOff;
+
             }
         }
 
