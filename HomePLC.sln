@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomePLC", "HomePLC.csproj", "{C5576D38-451F-45BA-B0BE-4A36911878A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomePLC.GUI", "HomePLC.GUI.csproj", "{C5576D38-451F-45BA-B0BE-4A36911878A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomePLC.RemoteService", "HomePLC.RemoteService\HomePLC.RemoteService.csproj", "{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{C5576D38-451F-45BA-B0BE-4A36911878A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5576D38-451F-45BA-B0BE-4A36911878A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5576D38-451F-45BA-B0BE-4A36911878A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
