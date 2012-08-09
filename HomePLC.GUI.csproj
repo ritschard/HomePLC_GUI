@@ -122,6 +122,7 @@
     <Compile Include="Model\DigitalPinTrigger.cs" />
     <Compile Include="Model\HomePLCException.cs" />
     <Compile Include="Model\RemoteServiceHost.cs" />
+    <Compile Include="Model\Service.cs" />
     <Compile Include="Model\TimeTrigger.cs" />
     <Compile Include="Forms\SelectTriggerForm.cs">
       <SubType>Form</SubType>
@@ -259,6 +260,9 @@
       <Project>{6DE0A07F-F283-4DDB-B635-D53C0F74C1DE}</Project>
       <Name>HomePLC.RemoteService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

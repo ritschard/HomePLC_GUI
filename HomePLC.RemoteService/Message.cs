@@ -9,21 +9,21 @@ namespace HomePLC.RemoteService
     [DataContract]
     public class Message
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
+        private string pin;
+        private string val;
+        
         [DataMember]
-        public bool BoolValue
+        public string Pin
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            get { return pin; }
+            set { pin = value; }
         }
 
         [DataMember]
-        public string StringValue
+        public string Value
         {
-            get { return stringValue; }
-            set { stringValue = value; }
+            get { return val; }
+            set { val = value; }
         }
     }
 }

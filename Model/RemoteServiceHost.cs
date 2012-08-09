@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.ServiceModel;
 using HomePLC.RemoteService;
+using System.ServiceModel.Channels;
+using System.ServiceModel.Description;
 
 namespace HomePLC.Model
 {
@@ -17,15 +19,17 @@ namespace HomePLC.Model
         
         public void Start()
         {
-            serviceBaseAddress = new Uri("net.tcp://" + serviceHostname + ":" + servicePort.ToString() + "/HomePLCRemoteService");
+            serviceBaseAddress = new Uri("http://" + serviceHostname + ":" + servicePort.ToString() + "/HomePLCRemoteService");
 
             if (!serviceStarted)
-            {
-                NetTcpBinding binding = new NetTcpBinding();
+            {                
+                remoteServiceHost = new ServiceHost(typeof(HomePLC.Model.Service), serviceBaseAddress);
+                remoteServiceHost.AddServiceEndpoint(typeof(RemoteService.IService), new BasicHttpBinding(), serviceBaseAddress);
 
-                remoteServiceHost = new ServiceHost(typeof(RemoteService.Service), serviceBaseAddress);
-                remoteServiceHost.AddServiceEndpoint(typeof(RemoteService.IService), binding, serviceBaseAddress);
+                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                smb.HttpGetEnabled = true;
 
+                remoteServiceHost.Description.Behaviors.Add(smb);
                 remoteServiceHost.Open();
 
                 serviceStarted = true;
