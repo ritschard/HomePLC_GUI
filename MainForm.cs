@@ -821,9 +821,12 @@ namespace HomePLC
             if (!myServiceHost.IsStarted)
             {
                 myServiceHost.Start();
-                                
+
                 if (myServiceHost.IsStarted)
+                {
                     tbRemote.Image = Properties.Resources.remotePhoneOn;
+                    logger.Debug(myServiceHost.HostUri.ToString());
+                }
             }
             else
             {
