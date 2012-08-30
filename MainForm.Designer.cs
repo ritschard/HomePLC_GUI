@@ -159,12 +159,12 @@
             this.statusSync = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.tbConnect = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbSettings = new System.Windows.Forms.ToolStripButton();
             this.tbAbout = new System.Windows.Forms.ToolStripButton();
-            this.triggerBS = new System.Windows.Forms.BindingSource(this.components);
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbRemote = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.triggerBS = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabIO.SuspendLayout();
             this.grpDigitalInputs.SuspendLayout();
@@ -1551,6 +1551,7 @@
             this.txtLog.Size = new System.Drawing.Size(495, 305);
             this.txtLog.TabIndex = 3;
             this.txtLog.Text = "";
+            this.txtLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtLog_LinkClicked);
             // 
             // chkUserLog
             // 
@@ -1660,10 +1661,10 @@
             this.tbConnect.ToolTipText = "Connect   ";
             this.tbConnect.Click += new System.EventHandler(this.tbConnect_Click);
             // 
-            // toolStripSeparator2
+            // toolStripSeparator1
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // tbSettings
             // 
@@ -1688,9 +1689,10 @@
             this.tbAbout.Text = "A&bout";
             this.tbAbout.Click += new System.EventHandler(this.tbAbout_Click);
             // 
-            // triggerBS
+            // toolStripSeparator2
             // 
-            this.triggerBS.DataSource = typeof(HomePLC.Model.BaseTrigger);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
             // 
             // tbRemote
             // 
@@ -1701,10 +1703,9 @@
             this.tbRemote.Text = "Remote control";
             this.tbRemote.Click += new System.EventHandler(this.tbRemote_Click);
             // 
-            // toolStripSeparator1
+            // triggerBS
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            this.triggerBS.DataSource = typeof(HomePLC.Model.BaseTrigger);
             // 
             // MainForm
             // 

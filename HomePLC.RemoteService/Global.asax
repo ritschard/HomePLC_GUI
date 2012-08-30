@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="HomePLC.RemoteService.Global" Language="C#" %>

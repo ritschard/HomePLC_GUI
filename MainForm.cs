@@ -825,7 +825,7 @@ namespace HomePLC
                 if (myServiceHost.IsStarted)
                 {
                     tbRemote.Image = Properties.Resources.remotePhoneOn;
-                    logger.Debug(myServiceHost.HostUri.ToString());
+                    logger.Debug("Service is runing on: " + myServiceHost.HostUri.ToString());
                 }
             }
             else
@@ -1035,6 +1035,11 @@ namespace HomePLC
                     break;
                 }
             }
+        }
+
+        private void txtLog_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.LinkText);
         }
 
         

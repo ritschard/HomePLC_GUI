@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.ServiceModel;
-using HomePLC.RemoteService;
+using System.ServiceModel.Web;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using HomePLC.RemoteService;
 
 namespace HomePLC.Model
 {
     public class RemoteServiceHost
     {
         private bool serviceStarted = false;
-        private ServiceHost remoteServiceHost = null;
+        private WebServiceHost remoteServiceHost = null;
         private Uri serviceBaseAddress = null;
         private string serviceHostname = "localhost";
         private int servicePort = 2202;
@@ -23,8 +23,7 @@ namespace HomePLC.Model
 
             if (!serviceStarted)
             {                
-                remoteServiceHost = new ServiceHost(typeof(HomePLC.Model.Service), serviceBaseAddress);
-                remoteServiceHost.AddServiceEndpoint(typeof(RemoteService.IService), new BasicHttpBinding(), serviceBaseAddress);
+                remoteServiceHost = new WebServiceHost(typeof(HomePLC.Model.Service1), serviceBaseAddress);
 
                 ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
                 smb.HttpGetEnabled = true;
@@ -86,7 +85,7 @@ namespace HomePLC.Model
             }
         }
 
-        public ServiceHost Host
+        public WebServiceHost Host
         {
             get
             {
