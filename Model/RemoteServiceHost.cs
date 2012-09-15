@@ -5,7 +5,6 @@ using System.Text;
 using System.ServiceModel.Web;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
-using HomePLC.RemoteService;
 
 namespace HomePLC.Model
 {
@@ -16,14 +15,27 @@ namespace HomePLC.Model
         private Uri serviceBaseAddress = null;
         private string serviceHostname = "localhost";
         private int servicePort = 2202;
-        
+
+        private Module module = null;
+
+        public RemoteServiceHost()
+        {
+            
+        }
+
+        public RemoteServiceHost(Module mdl)
+        {
+            module = mdl;
+        }
+
         public void Start()
         {
             serviceBaseAddress = new Uri("http://" + serviceHostname + ":" + servicePort.ToString() + "/HomePLCRemoteService");
 
             if (!serviceStarted)
-            {                
-                remoteServiceHost = new WebServiceHost(typeof(HomePLC.Model.Service1), serviceBaseAddress);
+            {
+                Service serv = new Service(module);
+                remoteServiceHost = new WebServiceHost(serv, serviceBaseAddress);
 
                 ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
                 smb.HttpGetEnabled = true;
@@ -63,6 +75,19 @@ namespace HomePLC.Model
             {
                 serviceHostname = value;
             }
+        }
+
+        public Module Module 
+        {
+            get 
+            {
+                return module;
+            }
+            set
+            {
+                module = value;
+            }
+        
         }
 
         public int Port

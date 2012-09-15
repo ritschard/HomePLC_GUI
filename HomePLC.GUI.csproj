@@ -124,7 +124,6 @@
     <Compile Include="Model\HomePLCException.cs" />
     <Compile Include="Model\RemoteServiceHost.cs" />
     <Compile Include="Model\Service.cs" />
-    <Compile Include="Model\Service1.cs" />
     <Compile Include="Model\TimeTrigger.cs" />
     <Compile Include="Forms\SelectTriggerForm.cs">
       <SubType>Form</SubType>
@@ -259,12 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="HomePLC.RemoteService\HomePLC.RemoteService.csproj">
-      <Project>{B49A4D35-1F9C-4BCE-A60F-102EDE0E4589}</Project>
-      <Name>HomePLC.RemoteService</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

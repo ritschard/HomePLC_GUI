@@ -68,7 +68,6 @@ namespace HomePLC
             ScriptCurrentChanged(null, null);
             triggerEngine = new TriggerEngine();
             triggerBS.DataSource = triggerEngine;
-            myServiceHost = new RemoteServiceHost();
         }
 
         #region // FORM LOAD/CLOSE METHODS //
@@ -133,15 +132,20 @@ namespace HomePLC
         
         private void InitModule(BoardType input, BoardType output)
         {
+            int numberOfInputs;
+            int numberOfOutputs;
+
             if (input == BoardType.Analog)
             {
                 inputBoard = BoardType.Analog;
+                numberOfInputs = 6;
                 grpAnalogInputs.Visible = true;
                 grpDigitalInputs.Visible = false;
             }
             else 
             {
                 inputBoard = BoardType.Digital;
+                numberOfInputs = 8;
                 grpDigitalInputs.Visible = true;
                 grpAnalogInputs.Visible = true;
             }
@@ -149,12 +153,14 @@ namespace HomePLC
             if (output == BoardType.Analog)
             {
                 outputBoard = BoardType.Analog;
+                numberOfOutputs = 8;
                 grpAnalogOutputs.Visible = true;
                 grpDigitalOutputs.Visible = false;
             }
             else
             {
                 outputBoard = BoardType.Digital;
+                numberOfOutputs = 8;
                 grpDigitalOutputs.Visible = true;
                 grpAnalogOutputs.Visible = false;
             }
@@ -163,11 +169,12 @@ namespace HomePLC
             {
                 mdl.Disconnect();
                 mdl.Dispose();
-                mdl = new Module(inputBoard, 8, outputBoard, 8);
+
+                mdl = new Module(inputBoard, numberOfInputs, outputBoard, numberOfOutputs);
             }
             else
             {
-                mdl = new Module(inputBoard, 8, outputBoard, 8);
+                mdl = new Module(inputBoard, numberOfInputs, outputBoard, numberOfOutputs);
             }
 
             mdl.IpAddress = IPAddress.Parse(Properties.Settings.Default.clientIP);
@@ -818,6 +825,8 @@ namespace HomePLC
 
         private void tbRemote_Click(object sender, EventArgs e)
         {
+            myServiceHost = new RemoteServiceHost(mdl);
+
             if (!myServiceHost.IsStarted)
             {
                 myServiceHost.Start();

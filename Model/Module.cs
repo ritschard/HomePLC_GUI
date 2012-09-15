@@ -143,7 +143,7 @@ namespace HomePLC.Model
    
     }
 
-    public class Module : IDisposable /* Interface for classes that are Disposable after use. */
+    public class Module : IDisposable /* Module implements IDisposable interface for classes that are Disposable after use. */
     {
         public OutputDigitalPinCollection OutputDigitalPin;
         public OutputAnalogPinCollection OutputAnalogPin;
@@ -785,35 +785,43 @@ namespace HomePLC.Model
                         Array.Copy(fInputAnalogPins, oldInputAnalogPins, fInputAnalogPins.Length);
                     else
                         Array.Copy(fInputDigitalPins, oldInputDigitalPins, fInputDigitalPins.Length);
-                                        
-                    for (int i = 1; i < 9; ++i)
+                        
+                    if (fInputType == BoardType.Digital)
                     {
-                        if (fInputType == BoardType.Digital)
+                        for (int i = 1; i < 9; ++i)
                         {
                             if (data[i] > 0)
                                 fInputDigitalPins[i - 1] = true;
                             else
                                 fInputDigitalPins[i - 1] = false;
                         }
-                        else
+                    }
+                    else
+                    {
+                        for (int i = 1; i < 7; ++i)
                         {
                             fInputAnalogPins[i - 1] = (byte) data[i];
                         }
                     }
-                    for (int i = 1; i < 9; ++i)
+                    
+                    if (fOutputType == BoardType.Digital)
                     {
-                        if (fOutputType == BoardType.Digital)
+                        for (int i = 1; i < 9; ++i)
                         {
                             if (data[i + 8] > 0)
                                 fOutputDigitalPins[i - 1] = true;
                             else
                                 fOutputDigitalPins[i - 1] = false;
                         }
-                        else
+                    }
+                    else
+                    {
+                        for (int i = 1; i < 9; ++i)
                         {
                             fOutputAnalogPins[i - 1] = (byte)data[i + 8];
                         }
                     }
+                    
                     for (int i = 17; i < 21; ++i)
                     {
                         time[j] = (short)data[i];
