@@ -43,7 +43,7 @@
     <WebPage>publish.htm</WebPage>
     <DisallowUrlActivation>true</DisallowUrlActivation>
     <ApplicationRevision>13</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -227,6 +227,8 @@
     <None Include="Resources\script_icon.png" />
     <None Include="Resources\icon_setting.png" />
     <None Include="Resources\sync.png" />
+    <None Include="Artwork\wifi.png" />
+    <None Include="Artwork\sync.png" />
     <Content Include="logic.ico" />
   </ItemGroup>
   <ItemGroup>
