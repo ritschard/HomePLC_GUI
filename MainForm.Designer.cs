@@ -129,10 +129,6 @@
             this.chkActions = new System.Windows.Forms.CheckBox();
             this.panelScripts = new System.Windows.Forms.Panel();
             this.scriptDGV = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.enabledDataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.isCompiledDataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.scriptBS = new System.Windows.Forms.BindingSource(this.components);
             this.btnExportScripts = new System.Windows.Forms.Button();
             this.btnAddScript = new System.Windows.Forms.Button();
             this.brnImportScripts = new System.Windows.Forms.Button();
@@ -154,15 +150,21 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusCLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusSpacerLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusRTC = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusSync = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolbar = new System.Windows.Forms.ToolStrip();
-            this.tbConnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.enabledDataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.isCompiledDataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.scriptBS = new System.Windows.Forms.BindingSource(this.components);
+            this.statusRTC = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusSync = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusRemote = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tbConnect = new System.Windows.Forms.ToolStripButton();
             this.tbSettings = new System.Windows.Forms.ToolStripButton();
             this.tbAbout = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbRemote = new System.Windows.Forms.ToolStripButton();
             this.triggerBS = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
@@ -194,11 +196,11 @@
             this.splitContainer1.SuspendLayout();
             this.panelScripts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scriptDGV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scriptBS)).BeginInit();
             this.panelTriggers.SuspendLayout();
             this.tabLog.SuspendLayout();
             this.status.SuspendLayout();
             this.toolbar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scriptBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.triggerBS)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1355,36 +1357,6 @@
             this.scriptDGV.Size = new System.Drawing.Size(479, 206);
             this.scriptDGV.TabIndex = 0;
             // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn1.Width = 225;
-            // 
-            // enabledDataGridViewCheckBoxColumn1
-            // 
-            this.enabledDataGridViewCheckBoxColumn1.DataPropertyName = "Enabled";
-            this.enabledDataGridViewCheckBoxColumn1.HeaderText = "Enabled";
-            this.enabledDataGridViewCheckBoxColumn1.Name = "enabledDataGridViewCheckBoxColumn1";
-            this.enabledDataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.enabledDataGridViewCheckBoxColumn1.Width = 110;
-            // 
-            // isCompiledDataGridViewCheckBoxColumn1
-            // 
-            this.isCompiledDataGridViewCheckBoxColumn1.DataPropertyName = "IsCompiled";
-            this.isCompiledDataGridViewCheckBoxColumn1.HeaderText = "IsCompiled";
-            this.isCompiledDataGridViewCheckBoxColumn1.Name = "isCompiledDataGridViewCheckBoxColumn1";
-            this.isCompiledDataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.isCompiledDataGridViewCheckBoxColumn1.Width = 110;
-            // 
-            // scriptBS
-            // 
-            this.scriptBS.AllowNew = true;
-            this.scriptBS.DataSource = typeof(HomePLC.Model.Script);
-            this.scriptBS.CurrentChanged += new System.EventHandler(this.ScriptCurrentChanged);
-            // 
             // btnExportScripts
             // 
             this.btnExportScripts.Location = new System.Drawing.Point(119, 253);
@@ -1575,8 +1547,10 @@
             this.statusCLabel,
             this.statusSpacerLabel,
             this.statusRTC,
+            this.toolStripStatusLabel2,
+            this.statusSync,
             this.toolStripStatusLabel3,
-            this.statusSync});
+            this.statusRemote});
             this.status.Location = new System.Drawing.Point(0, 447);
             this.status.Name = "status";
             this.status.Size = new System.Drawing.Size(517, 22);
@@ -1600,30 +1574,21 @@
             // statusSpacerLabel
             // 
             this.statusSpacerLabel.Name = "statusSpacerLabel";
-            this.statusSpacerLabel.Size = new System.Drawing.Size(259, 17);
+            this.statusSpacerLabel.Size = new System.Drawing.Size(180, 17);
             this.statusSpacerLabel.Spring = true;
             this.statusSpacerLabel.Text = "        ";
             // 
-            // statusRTC
+            // toolStripStatusLabel2
             // 
-            this.statusRTC.Image = global::HomePLC.Properties.Resources.Clock;
-            this.statusRTC.Name = "statusRTC";
-            this.statusRTC.Size = new System.Drawing.Size(45, 17);
-            this.statusRTC.Tag = "RTC";
-            this.statusRTC.Text = "RTC";
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel2.Text = " ";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabel3.Text = " ";
-            // 
-            // statusSync
-            // 
-            this.statusSync.Image = global::HomePLC.Properties.Resources.sync;
-            this.statusSync.Name = "statusSync";
-            this.statusSync.Size = new System.Drawing.Size(53, 17);
-            this.statusSync.Text = "SYNC";
             // 
             // toolbar
             // 
@@ -1647,6 +1612,68 @@
             this.toolbar.TabIndex = 42;
             this.toolbar.Text = "toolStrip1";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn1.Width = 225;
+            // 
+            // enabledDataGridViewCheckBoxColumn1
+            // 
+            this.enabledDataGridViewCheckBoxColumn1.DataPropertyName = "Enabled";
+            this.enabledDataGridViewCheckBoxColumn1.HeaderText = "Enabled";
+            this.enabledDataGridViewCheckBoxColumn1.Name = "enabledDataGridViewCheckBoxColumn1";
+            this.enabledDataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.enabledDataGridViewCheckBoxColumn1.Width = 110;
+            // 
+            // isCompiledDataGridViewCheckBoxColumn1
+            // 
+            this.isCompiledDataGridViewCheckBoxColumn1.DataPropertyName = "IsCompiled";
+            this.isCompiledDataGridViewCheckBoxColumn1.HeaderText = "IsCompiled";
+            this.isCompiledDataGridViewCheckBoxColumn1.Name = "isCompiledDataGridViewCheckBoxColumn1";
+            this.isCompiledDataGridViewCheckBoxColumn1.ReadOnly = true;
+            this.isCompiledDataGridViewCheckBoxColumn1.Width = 110;
+            // 
+            // scriptBS
+            // 
+            this.scriptBS.AllowNew = true;
+            this.scriptBS.DataSource = typeof(HomePLC.Model.Script);
+            this.scriptBS.CurrentChanged += new System.EventHandler(this.ScriptCurrentChanged);
+            // 
+            // statusRTC
+            // 
+            this.statusRTC.Image = global::HomePLC.Properties.Resources.Clock;
+            this.statusRTC.Name = "statusRTC";
+            this.statusRTC.Size = new System.Drawing.Size(45, 16);
+            this.statusRTC.Tag = "RTC";
+            this.statusRTC.Text = "RTC";
+            // 
+            // statusSync
+            // 
+            this.statusSync.Image = global::HomePLC.Properties.Resources.sync1;
+            this.statusSync.Name = "statusSync";
+            this.statusSync.Size = new System.Drawing.Size(53, 16);
+            this.statusSync.Text = "SYNC";
+            // 
+            // statusRemote
+            // 
+            this.statusRemote.Image = global::HomePLC.Properties.Resources.wifi;
+            this.statusRemote.Name = "statusRemote";
+            this.statusRemote.Size = new System.Drawing.Size(69, 16);
+            this.statusRemote.Text = "REMOTE";
+            // 
             // tbConnect
             // 
             this.tbConnect.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -1660,11 +1687,6 @@
             this.tbConnect.Text = "&Connect";
             this.tbConnect.ToolTipText = "Connect   ";
             this.tbConnect.Click += new System.EventHandler(this.tbConnect_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // tbSettings
             // 
@@ -1688,11 +1710,6 @@
             this.tbAbout.Size = new System.Drawing.Size(76, 36);
             this.tbAbout.Text = "A&bout";
             this.tbAbout.Click += new System.EventHandler(this.tbAbout_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
             // 
             // tbRemote
             // 
@@ -1721,7 +1738,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "HomePLC ver. 1.0 Alpha";
+            this.Text = "HomePLC GUI v1.32 Alpha";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
@@ -1758,7 +1775,6 @@
             this.splitContainer1.ResumeLayout(false);
             this.panelScripts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scriptDGV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scriptBS)).EndInit();
             this.panelTriggers.ResumeLayout(false);
             this.tabLog.ResumeLayout(false);
             this.tabLog.PerformLayout();
@@ -1766,6 +1782,7 @@
             this.status.PerformLayout();
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scriptBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.triggerBS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1909,6 +1926,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn isCompiledDataGridViewCheckBoxColumn1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tbRemote;
+        private System.Windows.Forms.ToolStripStatusLabel statusRemote;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
 
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.ServiceModel.Web;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.ServiceModel;
 
 namespace HomePLC.Model
 {
@@ -36,13 +37,11 @@ namespace HomePLC.Model
             {
                 Service serv = new Service(module);
                 remoteServiceHost = new WebServiceHost(serv, serviceBaseAddress);
+                
 
-                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                smb.HttpGetEnabled = true;
-
-                remoteServiceHost.Description.Behaviors.Add(smb);
+                ServiceEndpoint restSEP = remoteServiceHost.AddServiceEndpoint(typeof(Service), new WebHttpBinding(), serviceBaseAddress);
+                restSEP.Behaviors.Add(new WebHttpBehavior() { AutomaticFormatSelectionEnabled = true, HelpEnabled = true });
                 remoteServiceHost.Open();
-
                 serviceStarted = true;
             }
         }

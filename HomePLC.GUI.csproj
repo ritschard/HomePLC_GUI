@@ -229,6 +229,7 @@
     <None Include="Resources\sync.png" />
     <None Include="Artwork\wifi.png" />
     <None Include="Artwork\sync.png" />
+    <None Include="Artwork\remotePhoneOn.png" />
     <Content Include="logic.ico" />
   </ItemGroup>
   <ItemGroup>

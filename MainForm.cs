@@ -73,11 +73,10 @@ namespace HomePLC
         #region // FORM LOAD/CLOSE METHODS //
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //toolbar.Renderer = new ToolStripOverride();
             InitLog();
             InitModule(Properties.Settings.Default.devInputBoard, Properties.Settings.Default.devOutputBoard);
-
             timer1.Start();
+            statusRemote.Enabled = false;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -825,8 +824,9 @@ namespace HomePLC
 
         private void tbRemote_Click(object sender, EventArgs e)
         {
-            myServiceHost = new RemoteServiceHost(mdl);
-
+            if (myServiceHost == null)
+                myServiceHost = new RemoteServiceHost(mdl);
+                        
             if (!myServiceHost.IsStarted)
             {
                 myServiceHost.Start();
@@ -834,6 +834,7 @@ namespace HomePLC
                 if (myServiceHost.IsStarted)
                 {
                     tbRemote.Image = Properties.Resources.remotePhoneOn;
+                    statusRemote.Enabled = true;
                     logger.Debug("Service is runing on: " + myServiceHost.HostUri.ToString());
                 }
             }
@@ -841,8 +842,11 @@ namespace HomePLC
             {
                 myServiceHost.Stop();
                 if (!myServiceHost.IsStarted)
+                {
                     tbRemote.Image = Properties.Resources.remotePhoneOff;
-
+                    statusRemote.Enabled = false;
+                    logger.Debug("Service stoped. ");
+                }
             }
         }
 
