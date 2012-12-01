@@ -13,7 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>HomePLC.Program</StartupObject>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>logic.ico</ApplicationIcon>
     <ManifestCertificateThumbprint>53063EBDFCB2430E15A3A0F4AD1950CAFCF32244</ManifestCertificateThumbprint>
     <ManifestKeyFile>HomePLC_TemporaryKey.pfx</ManifestKeyFile>
@@ -28,19 +28,18 @@
     <TargetFrameworkProfile />
     <PublishUrl>D:\GIT\HomePLC_GUI\publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://sandbox.crisent.rs/Ritschie/HomePLC/</InstallUrl>
     <ProductName>HomePLC</ProductName>
     <PublisherName>AppL-DSP Subotica</PublisherName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
+    <AutorunEnabled>true</AutorunEnabled>
     <DisallowUrlActivation>true</DisallowUrlActivation>
     <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
